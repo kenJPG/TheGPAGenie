@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<body>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css')}}" />
+	<div class="min-h-screen bg-[#7A2648]">
+		<div class="flex justify-center min-h-screen overflow-hidden">
+			<div class="appear absolute min-h-full flex flex-col justify-center overflow-hidden">
+				<div class="relative w-[30rem] h-[30rem] lg:w-[40rem] lg:h-[40rem] xl:w-[45rem] xl:h-[45rem] rounded-full bg-[#97315A] overflow-hidden">
+				</div>
+			</div>
+			<div class="appear appear absolute hidden min-h-full lg:flex lg:flex-col z-10 lg:justify-end">
+				<img class="object-none mb-[-1rem] " src="{{ url_for('static', filename = 'images/index_hand.png') }} ">
+			</div>
+			<div class="flex flex-col justify-center min-h-full px-10">
+				<div class="z-10">
+					<p class="appear text-4xl sylfaen text-white text-center">the</p>
+					<p class="text-9xl migur text-white text-center"><span class="appear">gpa</span> <span class="appear">genie</span></p>
+				</div>
+				<div class="z-20 appear-first appear lamp_div relative top-0 left-0 ml-[-20px] mt-[-70px] cursor-pointer">
+					<img class="lamp relative top-0 left-0" src="{{ url_for('static', filename='images/lamp.png')}}" width="600">
+					<a href="/predict">
+						<img class="lamp_glow hover:scale-[1.03] origin-bottom hidden absolute top-0 left-0" src="{{ url_for('static', filename='images/lamp_glow.png')}}" width="600">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="z-30 relative">
+		<svg class="editorial" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+			viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 
+			58-18 88-18s
+			58 18 88 18 
+			58-18 88-18 
+			58 18 88 18
+			v44h-352z" />
+			</defs>
+			<g class="parallax1">
+				<use xlink:href="#gentle-wave" x="50" y="3" fill="#8e4b63" />
+			</g>
+			<g class="parallax2">
+				<use xlink:href="#gentle-wave" x="50" y="0" fill="#9e6979" />
+			</g>
+			<g class="parallax3">
+				<use xlink:href="#gentle-wave" x="50" y="9" fill="#b69599" />
+			</g>
+			<g class="parallax4">
+				<use xlink:href="#gentle-wave" x="50" y="6" fill="#dad5c9" />
+			</g>
+		</svg>
+	</div>
+	<div class="bg-[#dad5c9] py-[100px] z-40 relative">
+		<div class="flex flex-col justify-center mx-10">
+			<div class="mx-auto flex flex-col xl:flex-row xl:p-[100px] p-10">
+				<div class="p-3 mx-auto xl:mx-[50px]">
+					<div class="mx-auto">
+						<div class="rounded-full origin-center p-10 bg-[#ECE8DE]">
+							<img src="{{ url_for('static', filename='images/scroll.png')}}" class="mx-auto h-auto" alt="" width="200">
+						</div>
+					</div>
+				</div>
+				<div class="p-3 mx-auto flex flex-col justify-center text-center xl:text-left">
+					<h1 class="swist mb-4 text-4xl font-extrabold leading-0 text-[#7A2648] text-7xl xl:text-8xl"> Dark arts of ai </h1>
+					<p class="text-xl sylfaen text-[#535353] xl:text-2xl">we use advanced machine learning to estimate your gpa to <span class="text-black font-bold">85% accuracy.</span></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	let lamp = document.querySelector('.lamp_div')
+	let normal = document.querySelector('.lamp')
+	let glow = document.querySelector('.lamp_glow')
+	let appear = document.querySelectorAll('.appear')
+	let appear_first = document.querySelectorAll('.appear-first')
+	let appear_second = document.querySelectorAll('.appear-second')
+
+	normal.addEventListener('mouseover', () => {
+		glow.classList.remove('hidden')
+		normal.classList.add('opacity-0')
+	}, false)
+
+	glow.addEventListener('mouseout', () => {
+		glow.classList.add('hidden')
+		normal.classList.remove('opacity-0')
+	}, false)
+
+	window.addEventListener('load', (event) => {
+		for (let item of appear_first) {
+			item.classList.add('load')
+		}
+		let count = 2;
+		for (let item of appear_second) {
+			count += 1
+			setTimeout(function() {
+				item.classList.add('load')
+			}, count * 200)
+		}
+		count = 6;
+		for (let item of appear) {
+			count += 1
+			setTimeout(function() {
+				item.classList.add('load')
+			}, count * 200)
+		}
+	});
+
+</script>
+
+{% endblock %}

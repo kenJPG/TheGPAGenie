@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head %}
+        <meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{{ title }}</title>
+		<script src="https://cdn.tailwindcss.com"></script>
+		<link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.4/dist/flowbite.min.css" />
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/font.css')}}" />
+        {% endblock head %}
+    </head>
+	<body>
+		<div class="relative flex flex-col justify-center bg-[#DAD5C9] min-h-screen">
+			<div class="mx-auto sm:max-w-2xl my-[200px] rounded-3xl overflow-hidden flex shadow-xl">
+				<div class="min-w-[100%] sm:p-8 sm:min-w-[50%] pb-10 px-6 bg-[#ECE8DE]">
+					<div class="text-5xl mt-8 text-center swist">the <span class="text-[#7A2648]">genie</span> awaits</div>
+					<div class="w-full">
+						<form class="rounded px-4 mt-4 pb-3 mb-4 flex flex-col justify-center" action="/login" method="post" novalidate>
+							{{ form.hidden_tag() }}
+							<div class="mb-6">
+								{{ form.username.label(class_ ='block text-[#8C8C8C] sylfaen mb-2') }}
+								{{ form.username(class_='sylfaen shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline', id_='username', type_='text', placeholder_='enter username') }}
+								{% for error in form.username.errors %}
+									<span class="text-red-500 sylfaen text-sm">{{ error }}</span>
+								{% endfor %}
+							</div>
+							<div class="mb-6">
+								{{ form.password.label(class_ ='block text-[#8C8C8C] sylfaen mb-2') }}
+								{{ form.password(class_ ='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline', id_="password", placeholder_="*******") }}
+								{% if form.password.errors %}
+									{% for error in form.password.errors %}
+										<span class="text-red-500 sylfaen text-sm">{{ error }}</span>
+									{% endfor %}
+								{% else %}
+									{% for message in get_flashed_messages() %}
+										<span class="text-red-500 sylfaen text-sm">{{ message }}</span>
+									{% endfor %}
+								{% endif %}
+							</div>
+							<div class="flex items-center justify-between mx-auto">
+								{{ form.submit(class_='bg-[#D9D9D9] hover:bg-[#C2C2C2] text-[#8C8C8C] py-2 px-8 rounded-lg focus:outline-none focus:shadow-outline sylfaen cursor-pointer') }}
+							</div>
+						</form>
+					</div>
+				</div>
+				<div class="hidden sm:flex max-w-[50%]">
+					<img class="object-cover" src="{{ url_for('static', filename='images/login.jpg')}}" />
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+</html>

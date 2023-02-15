@@ -1,0 +1,324 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<body>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css')}}" />
+	<div class="min-h-screen bg-[#dad5c9]">
+		<div class="flex justify-center min-h-screen">
+			<div class="flex flex-col justify-center min-h-screen px-10">
+				<p class="text-5xl xl:text-7xl text-center migur text-gray-500 m-10">good to see you<br /><span class="text-black">student</span></p>
+				<div class="mx-auto flex flex-col md:flex-row xl:p-[70px] p-10 rounded-[20px] bg-[#EAE4D6]">
+					<div class="mx-10 xl:my-2 flex flex-col justify-center">
+						<img class="mx-auto" src="{{ url_for('static', filename = 'images/carpet.png')}}" width=140px>
+						<p class="text-center migur text-gray-500 text-4xl xl:text-6xl">improvement</p>
+						<p class="text-center text-gray-400 sylfaen text-lg xl:text-2xl">based on our predictions</p>
+						<p class="text-center text-black sylfaen text-lg xl:text-2xl">your GPA has changed by</p>
+						{% set color = '#21A300' if change >= 0 else '#a30002' %}
+						{% set change = '+' + change|string if change >= 0 else change|string %}
+						<p class="xl:mt-5 text-center text-[{{ color }}] medieval text-3xl xl:text-6xl">{{ change }}</p>
+					</div>
+					<div class="min-w-[340px] flex flex-row justify-center">
+						<img class="mx-auto object-contain" src="{{ url_for('api_get_image', filename = 'user_1.jpg') }}">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<svg class="bottom-[-1.5rem] editorial" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+			viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 
+			58-18 88-18s
+			58 18 88 18 
+			58-18 88-18
+			58 18 88 18
+			v44h-352z" />
+			</defs>
+			<g class="parallax1">
+				<use xlink:href="#gentle-wave" x="50" y="3" fill="#b69599" />
+			</g>
+			<g class="parallax2">
+				<use xlink:href="#gentle-wave" x="50" y="0" fill="#9e6979" />
+			</g>
+			<g class="parallax3">
+				<use xlink:href="#gentle-wave" x="50" y="9" fill="#8e4b63" />
+			</g>
+			<g class="parallax4">
+				<use xlink:href="#gentle-wave" x="50" y="6" fill="#7A2648" />
+			</g>
+		</svg>
+	</div>
+	<div class="bg-[#7A2648] py-[100px]">
+		<div class="flex flex-col justify-center mx-10">
+			<div id="table_container" class="xl:p-[100px]">
+				<img class="mx-auto" src="{{ url_for('static', filename = 'images/ritual.png') }}" width="100px" />
+				<p class="m-10 text-[#EEE19A] text-6xl text-center migur">
+					past rituals
+				</p>
+					<div class="overflow-x-auto mx-auto shadow-sm sm:rounded-lg p-[1rem] bg-[#4E5F7A] max-w-fit">
+						<form name="frmFilter" id="frmFilter" action="/profile#table_container" method="GET" novalidate>
+							<div>
+								<div class="flex flex-col md:flex-row md:justify-left md:py-5">
+									<div class="flex flex-row md:flex-col justify-left md:justify-center md:ml-5 mb-1 md:my-0">
+										<button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" class="py-2.5 inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+											<svg class="mr-2 w-4 h-4 text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path></svg>
+											{% set x = args.get('last_days') %}
+											{% if x == 10000|string or x not in ['1', '7', '30', '60'] %}
+												All
+											{% else %}
+												Last {{ x }} days
+											{% endif %}
+											<svg class="ml-2 w-3 h-3" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+										</button>
+										<!-- Dropdown menu -->
+										<div id="dropdownRadio" class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+											<ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
+												<li>
+													<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+														{% if args['last_days'] == '1' %}
+															<input checked="" id="filter-radio-example-1" type="radio" value="1" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% else %}
+															<input id="filter-radio-example-1" type="radio" value="1" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% endif %}
+														<label for="filter-radio-example-1" class="ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last day</label>
+													</div>
+												</li>
+												<li>
+													<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+														{% if args['last_days'] == '7' %}
+															<input checked="" id="filter-radio-example-2" type="radio" value="7" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% else %}
+															<input id="filter-radio-example-2" type="radio" value="7" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% endif %}
+														<label for="filter-radio-example-2" class="ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 7 days</label>
+													</div>
+												</li>
+												<li>
+													<div class="flex items-center p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+														{% if args['last_days'] == '30' %}
+															<input checked="" id="filter-radio-example-3" type="radio" value="30" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% else %}
+															<input id="filter-radio-example-3" type="radio" value="30" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% endif %}
+														<label for="filter-radio-example-3" class="ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 30 days</label>
+													</div>
+												</li>
+												<li>
+													<div class="flex items-center p-2 rounded hover:bg-gray-600">
+														{% if args['last_days'] == '60' %}
+															<input checked="" id="filter-radio-example-4" type="radio" value="60" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% else %}
+															<input id="filter-radio-example-4" type="radio" value="60" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% endif %}
+														<label for="filter-radio-example-4" class="ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Last 60 days</label>
+													</div>
+												</li>
+												<li>
+													<div class="flex items-center p-2 rounded hover:bg-gray-600">
+														{% if args['last_days'] == '10000' or args['last_days'] not in ['1', '7', '30', '60'] %}
+															<input checked="" id="filter-radio-example-5" type="radio" value="10000" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% else %}
+															<input id="filter-radio-example-5" type="radio" value="10000" name="last_days" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% endif %}
+														<label for="filter-radio-example-5" class="ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">All</label>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="flex flex-row md:flex-col justify-left md:justify-center md:ml-5 mb-1 md:my-0">
+										<label for="table-search" class="sr-only">Search</label>
+										<div class="relative">
+											<div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+												<svg class="w-5 h-5 text-gray-500 dark:text-gray-400" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+											</div>
+											<input type="text" id="table-search" name="search" class="block p-2.5 pl-10 w-[15rem] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search for items. column:value" value="{{ args.get('search') or '' }}">
+										</div>
+									</div>
+									<div class="flex flex-row md:flex-col justify-left md:justify-center md:ml-5 mb-1 md:my-0">
+										<button id="sortRadioButton" data-dropdown-toggle="sortDropdownRadio" class="py-2.5 inline-flex items-center text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-lg text-sm px-3 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button">
+											<svg class="mr-2 w-4 h-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 512 512" width="512" height="512">
+											<g>
+												<path fill="#000" d="M480,224H32c-17.673,0-32,14.327-32,32s14.327,32,32,32h448c17.673,0,32-14.327,32-32S497.673,224,480,224z"/>
+												<path fill="#000" d="M32,138.667h448c17.673,0,32-14.327,32-32s-14.327-32-32-32H32c-17.673,0-32,14.327-32,32S14.327,138.667,32,138.667z"/>
+												<path fill="#000" d="M480,373.333H32c-17.673,0-32,14.327-32,32s14.327,32,32,32h448c17.673,0,32-14.327,32-32S497.673,373.333,480,373.333z"/>
+											</g>
+											</svg>
+											{% set x = args.get('sort') %}
+											{% if x == "predicted_on" or x not in ['prediction', 'predicted_on'] %}
+												Sort: Date
+											{% else %}
+												Sort: GPA
+											{% endif %}
+											<svg class="ml-2 w-3 h-3" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+										</button>
+										<!-- Dropdown menu -->
+										<div id="sortDropdownRadio" class="hidden z-10 w-48 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600" data-popper-reference-hidden="" data-popper-escaped="" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate3d(522.5px, 3847.5px, 0px);">
+											<ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="sortRadioButton">
+												<li>
+													<div class="flex items-center rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+														{% if args.get('sort') == 'predicted_on' or args.get('sort') not in ['prediction', 'predicted_on'] %}
+															<input checked="true" id="sort-radio-example-1" type="radio" value="predicted_on" name="sort" class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% else %}
+															<input id="sort-radio-example-1" type="radio" value="predicted_on" name="sort" class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+														{% endif %}
+														<label for="sort-radio-example-1" class="cursor-pointer p-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Sort: Date</label>
+													</div>
+												</li>
+												<li>
+													<div class="flex items-center rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+														{% if args.get('sort') == 'prediction' %}
+															<input checked="true" id="sort-radio-example-2" type="radio" value="prediction" name="sort" class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+														{% else %}
+															<input id="sort-radio-example-2" type="radio" value="prediction" name="sort" class="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+														{% endif %}
+														<label for="sort-radio-example-2" class="cursor-pointer p-2 ml-2 w-full text-sm font-medium text-gray-900 rounded dark:text-gray-300">Sort: GPA</label>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="flex flex-row md:flex-col justify-left md:justify-center md:ml-5 mb-1 md:my-0">
+										<button id="dropdownBgHoverButton" data-dropdown-toggle="dropdownBgHover" class="text-white bg-gray-800 hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center" type="button">Show columns<svg class="ml-2 w-4 h-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+
+										<!-- Dropdown menu -->
+										<div id="dropdownBgHover" class="hidden z-10 w-48 bg-white rounded shadow dark:bg-gray-700">
+											<ul class="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200 max-h-56 overflow-y-scroll" aria-labelledby="dropdownBgHoverButton">
+												{% for column in all_columns or [] %}
+													<li>
+														<div class="flex items-center px-2 rounded hover:bg-gray-600">
+															{% if column in args.getlist('columns') %}
+																<input checked="{{ column in args.getlist('columns') }}" id="checkbox-item-{{ loop.index }}" type="checkbox" name="columns" value="{{ column }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+															{% else %}
+																<input id="checkbox-item-{{ loop.index }}" type="checkbox" name="columns" value="{{ column }}" class="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+															{% endif %}
+															<label for="checkbox-item-{{ loop.index }}" class="p-2 cursor-pointer ml-2 w-full text-sm font-medium rounded text-gray-300">{{ column }}</label>
+														</div>
+													</li>
+												{% endfor %}
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="flex flex-row justify-end py-2">
+									<input type="submit" class="bg-gray-800 text-white font-bold px-5 py-2 rounded-md cursor-pointer hover:bg-gray-700" value="Apply">
+								</div>
+							</div>
+						</form>
+						<table class="mx-auto md:w-[50rem] text-sm text-left text-gray-500 dark:text-gray-400">
+							<thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+								<tr>
+									<th scope="col" class="py-3 px-6">
+										prediction
+									</th>
+									<th scope="col" class="py-3 px-6">
+										predicted_on
+									</th>
+									{% for column in args.getlist('columns') %}
+										{% if (table_data.get('output')|length > 0) and (table_data.get('output')[0].get(column) != None) %}
+											<th scope="col" class="py-3 px-6">
+												{{ column }}
+											</th>
+										{% endif %}
+									{% endfor %}
+									<th scope="col" class="py-3 px-6">
+										Link
+									</th>
+									<th scope="col" class="py-3 px-6">
+										Remove
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% if table_data['output'] == 'error' %}
+									<tr><th scope="'row">Something went wrong.</th></tr>
+								{% elif table_data.get('output')|length %}
+									{% set rows = table_data.get('output') %}
+									{% for i in range((rows|length) - 1) %}
+										{% set row = rows[i] %}
+										<tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+											<th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+												{{ row['prediction']|round(2) }}
+											</th>
+											<td class="py-4 px-6">
+												{{ row['predicted_on'] }}
+											</td>
+
+											{% for column in (args.getlist('columns')) %}
+												{% if (table_data.get('output')|length > 0) and (table_data.get('output')[0].get(column) != None) %}
+													<td class="py-4 px-6">
+														{{ row[column] }}
+													</td>
+												{% endif %}
+											{% endfor %}
+											<td class="py-4 px-6">
+												<a class="text-blue-600 hover:underline" href="/result/{{row['id']}}">Visit</a>
+											</td>
+											<td class="py-4 px-6">
+												<form name="frmRemoveEntry" action="/profile/remove#table_container" method="post" novalidate>
+													<input type="hidden" name="id" value="{{ row['id'] }}">
+													<input type="submit" class="cursor-pointer" value="❌">
+												</form>
+											</td>
+										</tr>
+									{% endfor %}
+									<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600">
+										{% set row = rows[(rows|length) - 1] %}
+										<th scope="row" class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+											{{ row['prediction']|round(2) }}
+										</th>
+										<td class="py-4 px-6">
+											{{ row['predicted_on'] }}
+										</td>
+										{% for column in (args.getlist('columns')) %}
+											{% if (table_data.get('output')|length > 0) and (table_data.get('output')[0].get(column) != None) %}
+												<td class="py-4 px-6">
+													{{ row[column] }}
+												</td>
+											{% endif %}
+										{% endfor %}
+										<td class="py-4 px-6">
+											<a class="text-blue-600 hover:underline" href="/result/{{row['id']}}" >Visit</a>
+										</td>
+										<td class="py-4 px-6">
+											<form name="frmRemoveEntry" action="/profile/remove" method="post" novalidate>
+												<input type="hidden" name="id" value="{{ row['id'] }}">
+												<input type="submit" class="cursor-pointer" value="❌">
+											</form>
+										</td>
+									</tr>
+								{% else %}
+									<tr class="bg-white">
+										<th class="p-5" scope="row" colspan="4">
+											<p class="text-xl text-center text-black">
+												No prediction history.
+											</p>
+										</th>
+									</tr>
+								{% endif %}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="flex flex-col items-center">
+						<span class="text-sm text-gray-700 dark:text-gray-400">
+							Showing <span class="font-semibold text-gray-900 dark:text-white">{{ ([args.get('page')|int, 0])|max + 1 }}</span> to <span class="font-semibold text-gray-900 dark:text-white">{{ [args.get('page')|int, 0]|max + 5 }}</span> Entries
+						</span>
+						<div class="inline-flex mt-2 xs:mt-0">
+							<button form="frmFilter" name="page" value="{{ ([args.get('page')|int - 5, 0])|max }}" type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 rounded-l hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+								<svg aria-hidden="true" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd"></path></svg>
+								Prev
+							</button>
+							<button form="frmFilter" name="page" value="{{ args.get('page')|int + 5 }}" type="submit" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-gray-800 border-0 border-l border-gray-700 rounded-r hover:bg-gray-900 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">
+								Next
+								<svg aria-hidden="true" class="w-5 h-5 ml-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+{% endblock %}

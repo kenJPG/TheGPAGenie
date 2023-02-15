@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<body>
+	<div class="relative">
+		<div class="hidden xl:block absolute z-30 left-[40%] max-w-[60%]">
+			<img src="{{ url_for('static', filename='images/404.png') }}" />
+		</div>
+		<div class="min-h-screen bg-[#7A2648]">
+			<div class="flex justify-center min-h-screen">
+				<div class="absolute min-w-full min-h-full flex flex-col justify-center z-10">
+					<div class="mx-auto w-[45rem] h-[45rem] rounded-full bg-[#97315A]">
+					</div>
+				</div>
+				<div class="flex flex-col justify-center min-h-full px-10 z-20">
+					<div>
+						<div class="mt-[1.5rem] mb-[-5rem]">
+							<p class="medieval tracking-tight text-[20rem] text-white text-center">500</p>
+						</div>
+						<div>
+							<p class="sylfaen text-xl text-center text-white">Woops. Something went wrong.
+								<br/>
+								<a href="/" class="hover:underline">Take <span class="text-[#E8CF93]">the magic carpet</span> back home.</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+{% endblock %}

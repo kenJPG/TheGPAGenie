@@ -1,0 +1,119 @@
+{% extends "layout.html" %}
+{% block content %}
+<script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+<body>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/result.css')}}" />
+	<div class="min-h-screen bg-[#7A2648]">
+		<div class="flex justify-center min-h-screen">
+			<div class="flex flex-col justify-center min-h-full px-10">
+				<div class="mx-auto mt-[-5rem] my-10">
+					<img src=" {{ url_for('static', filename='images/smoke.png') }}" width="200" />
+				</div>
+				<div>
+					<p class="text-8xl migur text-white text-center">
+						<span class="appear">i predict a</span><br />
+						<span class="medieval appear text-[#E8CF93]"> {{ entry_query.prediction|round(2) }} </span><br />
+						<span class="appear">gpa</span>
+					</p>
+					<a href="/">
+						<p class="hover:underline pt-[4rem] medieval text-center text-blue-200">
+							back to home
+						</p>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div>
+		<svg class="editorial" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+			viewBox="0 24 150 28 " preserveAspectRatio="none">
+			<defs>
+				<path id="gentle-wave" d="M-160 44c30 0 
+			58-18 88-18s
+			58 18 88 18 
+			58-18 88-18 
+			58 18 88 18
+			v44h-352z" />
+			</defs>
+			<g class="parallax1">
+				<use xlink:href="#gentle-wave" x="50" y="3" fill="#8e4b63" />
+			</g>
+			<g class="parallax2">
+				<use xlink:href="#gentle-wave" x="50" y="0" fill="#9e6979" />
+			</g>
+			<g class="parallax3">
+				<use xlink:href="#gentle-wave" x="50" y="9" fill="#b69599" />
+			</g>
+			<g class="parallax4">
+				<use xlink:href="#gentle-wave" x="50" y="6" fill="#dad5c9" />
+			</g>
+		</svg>
+	</div>
+	<div class="bg-[#dad5c9] py-[100px]">
+		<div class="flex flex-col items-center text-gray-500">
+			<p class="text-center migur text-[#7A2648] text-8xl">insights</p>
+			<div class="m-10 my-[5rem]">
+				{% set title = result_query.improve_title.split(' ') %}
+				<p class="text-center sylfaen text-6xl my-2"> <span class="text-black">{{ title[0] }}</span> {{ title[1] }} </p>
+				<p class="text-center sylfaen text-3xl my-2">{{ result_query.improve_text }}</p>
+				{% set filename = (result_query.improve_image_path.split('/')[-1]) %}
+				<div class="m-10">
+					<img src="{{ url_for('api_get_image', filename = filename) }}" />
+				</div>
+				<p class="text-center sylfaen text-3xl my-10">you should <span class="text-[#9D2222]">aim to improve</span> here.</p>
+			</div>
+			<div class="m-10 my-[5rem]">
+				{% set title = result_query.good_title.split(' ') %}
+				<p class="text-center sylfaen text-6xl my-2"> <span class="text-black">{{ title[0] }}</span> {{ title[1] }} </p>
+				<p class="text-center sylfaen text-3xl my-2">{{ result_query.good_text }}</p>
+				{% set filename = (result_query.good_image_path.split('/')[-1]) %}
+				<div class="m-10">
+					<img src="{{ url_for('api_get_image', filename = filename) }}" />
+				</div>
+				<p class="text-center sylfaen text-3xl my-10">you are <span class="text-[#21A300]">doing well</span> here.</p>
+			</div>
+		</div>
+	</div>
+	<div class="bg-[#dad5c9] py-[100px]">
+		<div class="flex flex-row justify-center w-full">
+			<div class="flex flex-col justify-center">
+				<div class="block">
+					<p class="align-center text-center text-5xl sylfaen black p-10">share with friends.</p>
+				</div>
+				<div>
+					<button class="mx-auto block rounded-full w-[5rem] h-[5rem] bg-[#ECE8DE]" onclick="copyToClipboard()">
+						<img src="{{ url_for('static', filename='images/copy.png') }}" />
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	let lamp = document.querySelector('.lamp_div')
+	let normal = document.querySelector('.lamp')
+	let glow = document.querySelector('.lamp_glow')
+	let appear = document.querySelectorAll('.appear')
+
+	window.addEventListener('load', (event) => {
+		// appear_first.classList.add('load')
+		let count = 4;
+		for (let item of appear) {
+			count += 1
+			setTimeout(function() {
+				item.classList.add('load')
+			}, count * 200)
+		}
+	});
+
+	function copyToClipboard(text) {
+		var inputc = document.body.appendChild(document.createElement("input"));
+		inputc.value = window.location.href;
+		inputc.focus();
+		inputc.select();
+		document.execCommand('copy');
+		inputc.parentNode.removeChild(inputc);
+	}
+
+</script>
+{% endblock %}

@@ -1,0 +1,35 @@
+@font-face {
+   font-family: sylfaenFont;
+   src: url(sylfaen.ttf);
+}
+
+@font-face {
+   font-family: migurFont;
+   src: url(Migur.ttf);
+}
+
+@font-face {
+   font-family: medievalFont;
+   src: url(MedievalSharp-Regular.ttf);
+}
+
+@font-face {
+   font-family: swistFont;
+   src: url(Swist.ttf);
+}
+
+.medieval {
+	font-family: medievalFont;
+}
+
+.sylfaen {
+   font-family: sylfaenFont;
+}
+
+.migur {
+   font-family: migurFont;
+}
+
+.swist {
+   font-family: swistFont;
+}
